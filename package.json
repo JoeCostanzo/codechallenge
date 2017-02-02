@@ -1,0 +1,15 @@
+{
+  "name": "codechallenge",
+  "version": "1.0.0",
+  "description": "Coding examples, solutions to puzzles, etc.",
+  "main": "n/a",
+  "dependencies": {
+    "babel-cli": "^6.22.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joseph Costanzo",
+  "license": "ISC"
+}
