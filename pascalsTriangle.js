@@ -6,8 +6,14 @@ let numTiers = 100,
   start,
   stop;
 
+/**
+ * Finds n-tiers of Pascal's Triangle, without using looping.
+ * @param n - The desired number of tiers.
+ * @param a - An initial array, representing the first tier of the triangle.
+ * @returns {Array}
+ */
 function pascalOnlyRecursive(n, a) {
-  if (n < 2) return a; // top row already exists
+  if (n < 2) return a; // first tier already exists
 
   const findCurTier = ({
     curTier = [1],
