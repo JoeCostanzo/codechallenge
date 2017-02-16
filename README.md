@@ -7,4 +7,4 @@
 
 ## Run examples
 
-- `babel node [desired file]` (e.g. `babel-node pascalsTriangle.js`)
+- `babel-node [desired file]` (e.g. `babel-node pascalsTriangle.js`)

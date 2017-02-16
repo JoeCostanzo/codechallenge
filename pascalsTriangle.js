@@ -12,7 +12,7 @@ let numTiers = 100,
  * @param a - An initial array, representing the first tier of the triangle.
  * @returns {Array}
  */
-function pascalOnlyRecursive(n, a) {
+function pascalOnlyRecursive(n, a = [[1]]) {
   if (n < 2) return a; // first tier already exists
 
   const findCurTier = ({
@@ -34,7 +34,7 @@ function pascalOnlyRecursive(n, a) {
 }
 
 start = new Date().getMilliseconds();
-triangle = pascalOnlyRecursive(numTiers, [[1]]);
+triangle = pascalOnlyRecursive(numTiers);
 stop = new Date().getMilliseconds();
 executionTime = stop - start;
 console.log(triangle);
