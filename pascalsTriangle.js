@@ -1,5 +1,4 @@
 'use strict';
-
 let numTiers = 100,
   executionTime,
   triangle,
@@ -38,7 +37,7 @@ triangle = pascalOnlyRecursive(numTiers);
 stop = new Date().getMilliseconds();
 executionTime = stop - start;
 console.log(triangle);
-console.log('Execution time: ' + executionTime + '\n');
+console.log(`Execution time: ${executionTime}\n`);
 
 /**
  * Created by joec on 2/2/2017.
