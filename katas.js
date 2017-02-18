@@ -1,12 +1,12 @@
 'use strict';
 /**
- * Finds only the odd numbers of a given array, without using looping.
- * @param arr - The given array of numbers to be filtered for only odd ones.
+ * Finds only the odd numbers of a given array, without using looping, nor modifying the array.
+ * @param arr - Supply an array of numbers to be filtered for only odd ones.
  * @returns {Array}
  */
-function oddNums(arr, res = [], val = arr.pop()) {
+function oddNums(arr, res = [], val = arr[0]) {
   val % 2 !== 0 && (res.push(val));
-  return arr.length > 0 ? (oddNums(arr, res)) : res.sort((a, b) => a - b);
+  return arr.length > 1 ? (oddNums(arr.slice(1, arr.length), res)) : typeof arr[0] === 'number' && (res) || false;
 }
 
 console.log(oddNums([1, 2, 3, 4, 5]));
