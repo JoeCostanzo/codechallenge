@@ -1,4 +1,26 @@
 'use strict';
+const findOdd = A => A.filter(search => A.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0];
+
+console.log(findOdd([1, 1, 3, 3, 3, 3, 26, 10, 10])); // 26
+
+
+function accum(s) {
+  String.prototype.traverse = function() {
+    let i = -1;
+    return this.replace(/([a-z])|([^a-z])/gi, (m, g1) => {
+      if (g1) {
+        i++;
+        return `${m.toUpperCase() + m.toLowerCase().repeat(i)}-`;
+      }
+      return "Err: bad input.";
+    }).slice(0, -1);
+  };
+  return s.traverse();
+}
+
+console.log(accum("abcd")); // "A-Bb-Ccc-Dddd"
+
+
 /**
  * Finds only the odd numbers of a given array, without using looping, nor modifying the array.
  * @param arr - Supply an array of numbers to be filtered for only odd ones.
