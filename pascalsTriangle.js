@@ -1,9 +1,11 @@
 'use strict';
-let numTiers = 100,
+let numTiers = 30,
   executionTime,
   triangle,
   start,
-  stop;
+  stop,
+  prior = '',
+  buf = [];
 
 /**
  * Finds n-tiers of Pascal's Triangle, without using looping.
@@ -33,10 +35,21 @@ function pascalOnlyRecursive(n, a = [[1]]) {
 }
 
 start = new Date().getMilliseconds();
-triangle = pascalOnlyRecursive(numTiers);
+triangle = pascalOnlyRecursive(numTiers).reverse();
 stop = new Date().getMilliseconds();
 executionTime = stop - start;
-console.log(triangle);
+
+
+for (let tier of triangle) {
+  let newLine = tier.join(" ");
+  let diff = prior.length - newLine.length;
+  if (diff > 0) {
+    newLine = `${' '.repeat(diff/2)}${newLine}${' '.repeat(diff/2)}`;
+  }
+  buf.push(newLine);
+  prior = newLine;
+}
+console.log(buf.reverse().join("\n"));
 console.log(`Execution time: ${executionTime}\n`);
 
 /**
