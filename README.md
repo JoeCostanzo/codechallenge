@@ -1,9 +1,11 @@
-# Running Code Examples with Node v6 and Babel 6
+# Running Code Examples with NodeJS and Babel
 
-## Node / NPM, and Babel v6 Installation
+## Node / NPM, and Babel Installation
 
-- Install Node from [the Node.js website](https://nodejs.org)
-- Install the Babel command line tool: `npm install -g babel-cli`
+- Install the latest version of Node from [the Node.js website](https://nodejs.org)
+- Clone this repo to your computer: `git clone git@github.com:JoeCostanzo/codechallenge.git`
+- Change directory into the project: `cd codechallenge`
+- Install the project: `npm install` (will install babel tools such as `babel-cli`, etc)
 
 ## Run examples
 
