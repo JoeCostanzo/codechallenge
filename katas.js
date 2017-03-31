@@ -18,7 +18,8 @@ const k = {
    * @param array
    * @returns number
    */
-  findElemWithOddOccurences: array => array.filter(search => array.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0],
+  findElemWithOddOccurences: array =>
+    Array.isArray(array) && (array.filter(search => array.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0]) || false,
 
 
   /**
@@ -43,12 +44,12 @@ const k = {
 
   /**
    * Finds only the odd numbers of a given array, without using looping, nor modifying the array.
-   * @param arr - Supply an array of numbers to be filtered for only odd ones.
+   * @param array - Supply an array of numbers to be filtered for only odd ones.
    * @returns {Array}
    */
-  oddNums(arr, res = [], val = arr[0]) {
+  oddNums(array, res = [], val = array[0]) {
     val % 2 !== 0 && (res.push(val));
-    return arr.length > 1 ? (k.oddNums(arr.slice(1, arr.length), res)) : typeof arr[0] === 'number' && (res) || false;
+    return array.length > 1 ? (k.oddNums(array.slice(1, array.length), res)) : typeof array[0] === 'number' && (res) || false;
   },
 
 
