@@ -1,16 +1,18 @@
 {
   "name": "codechallenge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Coding examples, solutions to puzzles, etc.",
   "main": "n/a",
   "dependencies": {
     "babel-cli": "^6.22.2",
     "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-2": "^6.22.0"
+    "babel-preset-stage-2": "^6.22.0",
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "babel-node test.js"
+    "test": "babel-node test/test.js",
+    "start": "nodemon test/test.js --exec babel-node --presets es2015,stage-2"
   },
   "author": "Joseph Costanzo",
   "license": "ISC"
