@@ -9,16 +9,18 @@ let numTiers = 30,
 
 /**
  * Finds n-tiers of Pascal's Triangle, without using looping.
- * @param n - The desired number of tiers.
- * @param a - An initial array, representing the first tier of the triangle.
+ *
+ * @function
+ * @param {Number} number - The desired number of tiers.
+ * @param {Array} array - An initializer, representing the first tier of the triangle.
  * @returns {Array}
  */
-function pascalOnlyRecursive(n, a = [[1]]) {
-  if (n < 2) return a; // first tier already exists
+function pascalOnlyRecursive(number, array = [[1]]) {
+  if (number < 2) return array; // first tier already exists
 
   const findCurTier = ({
     curTier = [1],
-    prevTier = a[a.length - 1],
+    prevTier = array[array.length - 1],
     i = 1
   }) => {
     if (i == prevTier.length) return curTier;
@@ -29,9 +31,9 @@ function pascalOnlyRecursive(n, a = [[1]]) {
   let curTier = findCurTier({});
 
   curTier.push(1);
-  a.push(curTier);
+  array.push(curTier);
 
-  return pascalOnlyRecursive(n - 1, a);
+  return pascalOnlyRecursive(number - 1, array);
 }
 
 start = new Date().getMilliseconds();
