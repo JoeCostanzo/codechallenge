@@ -55,12 +55,12 @@ const k = {
 
   /**
    * Given a string of words, returns the length of the shortest word(s).
-   * @param s - supply the source words to parse.
+   * @param string - supply the source words to parse.
    * @param shortest - initializer var to hold the answer.
    * @returns {Number}
    */
-  findShort(s, shortest = Number.POSITIVE_INFINITY) {
-    for (let sub of s.split(" ")) {
+  findShort(string, shortest = Number.POSITIVE_INFINITY) {
+    for (let sub of string.split(" ")) {
       sub.length < shortest && (shortest = sub.length);
     }
     return shortest;
@@ -70,11 +70,11 @@ const k = {
   /**
    * Square every digit of a number.
    * For example, if receive 9119, return 811181.
-   * @param num
+   * @param number
    * @returns {Number}
    */
-  squareDigits: num => parseInt(
-    num.toString().split("").map(digit => (parseInt(digit) * parseInt(digit)).toString()).join("")
+  squareDigits: number => parseInt(
+    number.toString().split("").map(digit => (parseInt(digit) * parseInt(digit)).toString()).join("")
   ),
 
 
@@ -84,21 +84,21 @@ const k = {
    * E.g. if start Tribonacci sequence with [1,1,1] as input (AKA signature), we have this sequence:
    * [1,1,1,3,5,9,17,31,...] But if start with [0,0,1] as a signature, the result starts with [0,1]
    * instead of [1,1], shifting the common Fibo sequence by one place.
-   * @param sig - array must contain 3 numbers
-   * @param n - must be a non-negative number
+   * @param array - a "signature" as an array that must contain 3 numbers
+   * @param number - must be a non-negative number
    * @returns {Array}
    */
-  tribonacci(sig, n) {
-    new Array(n).fill().map((_, i) => {
+  tribonacci(array, number) {
+    new Array(number).fill().map((_, i) => {
       let accum = [];
-      sig.slice(i).map(_int => accum.push(_int));
+      array.slice(i).map(_int => accum.push(_int));
       if (accum.length === 3) {
-        sig.push(accum.reduce((a, b) => a + b, 0));
+        array.push(accum.reduce((a, b) => a + b, 0));
         accum.shift();
       }
     });
-    sig.length = n;
-    return sig;
+    array.length = number;
+    return array;
   },
 
 
