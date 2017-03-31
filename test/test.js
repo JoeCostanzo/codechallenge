@@ -1,4 +1,4 @@
-import katas from './katas';
+import katas from '../src/katas';
 
 console.log(katas.VerifyAllKatas());
 

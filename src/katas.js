@@ -14,20 +14,28 @@ const areEqual = (a, b) => {
 
 const k = {
   /**
-   * Returns an element that occurs an odd number of times, out of an array containing a series of numbers that appear multiple times
-   * @param array
-   * @returns number
+   * Returns an element that occurs an odd number of times,
+   * out of an array containing a series of numbers that appear multiple times
+   *
+   * @function findElemWithOddOccurences
+   * @param {Array} array
+   * @returns {Number|Boolean}
    */
   findElemWithOddOccurences: array =>
-    Array.isArray(array) && (array.filter(search => array.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0]) || false,
+    Array.isArray(array)
+      && (
+        array.filter(search => array.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0]
+      ) || false,
 
 
   /**
    * Converts a string to a version that 'accumulates' each character in a certain pattern.
-   * @param string
-   * @returns string
+   *
+   * @function accum
+   * @param {String} string
+   * @returns {String}
    */
-  accum(string) {
+  accum: string => {
     String.prototype.traverse = function() {
       let i = -1;
       return this.replace(/([a-z])|([^a-z])/gi, (m, g1) => {
@@ -43,8 +51,11 @@ const k = {
 
 
   /**
-   * Finds only the odd numbers of a given array, without using looping, nor modifying the array.
-   * @param array - Supply an array of numbers to be filtered for only odd ones.
+   * Finds only the odd numbers of a given array,
+   * without using looping, nor modifying the array.
+   *
+   * @function oddNums
+   * @param {Array} array - an array of numbers to be filtered for only odd ones.
    * @returns {Array}
    */
   oddNums(array, res = [], val = array[0]) {
@@ -55,8 +66,9 @@ const k = {
 
   /**
    * Given a string of words, returns the length of the shortest word(s).
-   * @param string - supply the source words to parse.
-   * @param shortest - initializer var to hold the answer.
+   *
+   * @function findShort
+   * @param {String} string - the source words to parse.
    * @returns {Number}
    */
   findShort(string, shortest = Number.POSITIVE_INFINITY) {
@@ -70,7 +82,9 @@ const k = {
   /**
    * Square every digit of a number.
    * For example, if receive 9119, return 811181.
-   * @param number
+   *
+   * @function squareDigits
+   * @param {Number} number
    * @returns {Number}
    */
   squareDigits: number => parseInt(
@@ -84,8 +98,10 @@ const k = {
    * E.g. if start Tribonacci sequence with [1,1,1] as input (AKA signature), we have this sequence:
    * [1,1,1,3,5,9,17,31,...] But if start with [0,0,1] as a signature, the result starts with [0,1]
    * instead of [1,1], shifting the common Fibo sequence by one place.
-   * @param array - a "signature" as an array that must contain 3 numbers
-   * @param number - must be a non-negative number
+   *
+   * @function tribonacci
+   * @param {Array} array - a "signature" as an array that must contain 3 numbers
+   * @param {Number} number - must be a non-negative number
    * @returns {Array}
    */
   tribonacci(array, number) {
@@ -106,8 +122,9 @@ const k = {
    * Parses strings containing arrangements of open "(" and closing ")" brackets,
    * to return the index of that string which marks the point at which an EQUAL
    * number of open and closing brackets exist, before & after the index respectively.
-   * @param string
-   * @returns {number}
+   *
+   * @param {String} string
+   * @returns {Number}
    * @constructor
    */
   BracketsParser(
@@ -130,7 +147,8 @@ const k = {
 
   /**
    * Converts an int into an array of ints representing it's value in Base -2 (negabinary) format
-   * @param int
+   *
+   * @param {Number} int
    * @returns {Array}
    * @constructor
    */
@@ -147,8 +165,9 @@ const k = {
 
   /**
    * Converts an array of ints representing an integer in Base -2 (negabinary) format into an int
-   * @param array
-   * @returns {number}
+   *
+   * @param {Array} array
+   * @returns {Number}
    * @constructor
    */
   ConvertNegaBinaryToInt(array) {
@@ -163,7 +182,8 @@ const k = {
   /**
    * Takes an array of ints that are in a Base -2 (negabinary) series, representing an integer,
    * returns another array, also in Base -2 (negabinary), representing that integers's negative.
-   * @param array
+   *
+   * @param {Array} array
    * @returns {Array}
    * @constructor
    */
@@ -175,7 +195,8 @@ const k = {
    * Calls each of the functions herein defined,
    * with their correct implementation,
    * and verifies the output.
-   * @returns {string}
+   *
+   * @returns {String}
    * @constructor
    */
   VerifyAllKatas() {
