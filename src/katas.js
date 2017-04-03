@@ -70,12 +70,18 @@ const k = {
    * @param {Array} array - an array of numbers to be filtered for only odd ones.
    * @returns {Array|Number}
    */
-  oddNums(array, res = [], val) {
+  oddNums(array, res = [], val, isStr = typeof array === "string") {
     if (
-      Array.isArray(array) && (val = array[0])
+      Array.isArray(array) || isStr
     ) {
-      val % 2 !== 0 && (res.push(val));
-      return array.length > 1 ? (k.oddNums(array.slice(1, array.length), res)) : typeof array[0] === 'number' && (res) || false;
+      isStr && (array = [...array]);
+      typeof array[0] !== "number" && (array = array.map(c => parseInt(c, 10)));
+      if (val = array[0]) {
+        val % 2 !== 0 && (res.push(val));
+        return array.length > 1
+          ? (k.oddNums(array.slice(1, array.length), res))
+          : typeof array[0] === 'number' && (res);
+      }
     }
     return -1;
   },
@@ -94,7 +100,7 @@ const k = {
   ) {
     if (safeStrArg(string)) {
       for (let sub of string.split(' ')) {
-        sub.length < shortest && (shortest = sub.length);
+        sub !== '' && (sub.length < shortest) && (shortest = sub.length);
       }
       return shortest;
     }
@@ -110,7 +116,7 @@ const k = {
    * @param {Number} number
    * @returns {Number}
    */
-  squareDigits: number => typeof number === "number" && (parseInt(
+  squareDigits: number => typeof number === 'number' && (parseInt(
     number.toString().split('').map(digit => (parseInt(digit) * parseInt(digit)).toString()).join(''))
   ) || -1,
 
@@ -268,11 +274,17 @@ const k = {
       k.oddNums(null),
       -1,
 
+      k.oddNums('2314'),
+      [3, 1],
+
       k.oddNums([1, 2, 3, 4, 5]),
       [1, 3, 5],
 
       k.findShort(''),
       -1,
+
+      k.findShort('one two three four '),
+      3,
 
       k.findShort('one two three four'),
       3,
