@@ -1,17 +1,25 @@
 'use strict';
 
-const areEqual = (a, b) => {
+function areEqual(a, b) {
   !Array.isArray(a) && (a = [a]);
-  if (typeof a[a.length - 1] === "boolean") {
+  if (typeof a[a.length - 1] === 'boolean') {
     a.push(b);
     return a;
   }
   const elm = a.pop();
   a.push(Array.isArray(b) ? elm.toString() === b.toString() : elm === b);
   return a;
-};
+}
 
-
+function safeStrArg(
+  string,
+  isStr = typeof string === 'string',
+  hasLen
+) {
+  return string && (isStr)
+    && (hasLen = string.length)
+    && (hasLen > 0) && (hasLen);
+}
 const k = {
   /**
    * Returns an element that occurs an odd number of times,
@@ -19,13 +27,13 @@ const k = {
    *
    * @function findElemWithOddOccurences
    * @param {Array} array
-   * @returns {Number|Boolean}
+   * @returns {Number}
    */
   findElemWithOddOccurences: array =>
     Array.isArray(array)
       && (
         array.filter(search => array.reduce((n, val) => n + (val === search), 0) % 2 !== 0)[0]
-      ) || false,
+      ) || -1,
 
 
   /**
@@ -33,20 +41,23 @@ const k = {
    *
    * @function accum
    * @param {String} string
-   * @returns {String}
+   * @returns {String|Number}
    */
   accum: string => {
-    String.prototype.traverse = function() {
-      let i = -1;
-      return this.replace(/([a-z])|([^a-z])/gi, (m, g1) => {
-        if (g1) {
-          i++;
-          return `${m.toUpperCase() + m.toLowerCase().repeat(i)}-`;
-        }
-        return "Err: bad input.";
-      }).slice(0, -1);
-    };
-    return string.traverse();
+    if (safeStrArg(string)) {
+      String.prototype.traverse = function() {
+        let i = -1;
+        return this.replace(/([a-z])|([^a-z])/gi, (m, g1) => {
+          if (g1) {
+            i++;
+            return `${m.toUpperCase() + m.toLowerCase().repeat(i)}-`;
+          }
+          return 'Err: bad input.';
+        }).slice(0, -1);
+      };
+      return string.traverse();
+    }
+    return -1;
   },
 
 
@@ -56,11 +67,16 @@ const k = {
    *
    * @function oddNums
    * @param {Array} array - an array of numbers to be filtered for only odd ones.
-   * @returns {Array}
+   * @returns {Array|Number}
    */
-  oddNums(array, res = [], val = array[0]) {
-    val % 2 !== 0 && (res.push(val));
-    return array.length > 1 ? (k.oddNums(array.slice(1, array.length), res)) : typeof array[0] === 'number' && (res) || false;
+  oddNums(array, res = [], val) {
+    if (
+      Array.isArray(array) && (val = array[0])
+    ) {
+      val % 2 !== 0 && (res.push(val));
+      return array.length > 1 ? (k.oddNums(array.slice(1, array.length), res)) : typeof array[0] === 'number' && (res) || false;
+    }
+    return -1;
   },
 
 
@@ -71,11 +87,17 @@ const k = {
    * @param {String} string - the source words to parse.
    * @returns {Number}
    */
-  findShort(string, shortest = Number.POSITIVE_INFINITY) {
-    for (let sub of string.split(" ")) {
-      sub.length < shortest && (shortest = sub.length);
+  findShort(
+    string,
+    shortest = Number.POSITIVE_INFINITY
+  ) {
+    if (safeStrArg(string)) {
+      for (let sub of string.split(' ')) {
+        sub.length < shortest && (shortest = sub.length);
+      }
+      return shortest;
     }
-    return shortest;
+    return -1;
   },
 
 
@@ -87,9 +109,9 @@ const k = {
    * @param {Number} number
    * @returns {Number}
    */
-  squareDigits: number => parseInt(
-    number.toString().split("").map(digit => (parseInt(digit) * parseInt(digit)).toString()).join("")
-  ),
+  squareDigits: number => typeof number === "number" && (parseInt(
+    number.toString().split('').map(digit => (parseInt(digit) * parseInt(digit)).toString()).join(''))
+  ) || -1,
 
 
   /**
@@ -100,26 +122,32 @@ const k = {
    * instead of [1,1], shifting the common Fibo sequence by one place.
    *
    * @function tribonacci
-   * @param {Array} array - a "signature" as an array that must contain 3 numbers
-   * @param {Number} number - must be a non-negative number
-   * @returns {Array}
+   * @param {Array} array - a 'signature' as an array that must contain 3 numbers
+   * @param {Number} number - The ultimate desired length of the output pattern, must be a non-negative number
+   * @returns {Array|Number}
    */
-  tribonacci(array, number) {
-    new Array(number).fill().map((_, i) => {
-      let accum = [];
-      array.slice(i).map(_int => accum.push(_int));
-      if (accum.length === 3) {
-        array.push(accum.reduce((a, b) => a + b, 0));
-        accum.shift();
-      }
-    });
-    array.length = number;
-    return array;
+  tribonacci(array, number = 1) {
+    if (
+      Array.isArray(array)
+      && typeof number === 'number'
+    ) {
+      new Array(number).fill().map((_, i) => {
+        let accum = [];
+        array.slice(i).map(_int => accum.push(_int));
+        if (accum.length === 3) {
+          array.push(accum.reduce((a, b) => a + b, 0));
+          accum.shift();
+        }
+      });
+      array.length = number;
+      return array;
+    }
+    return -1;
   },
 
 
   /**
-   * Parses strings containing arrangements of open "(" and closing ")" brackets,
+   * Parses strings containing arrangements of open '(' and closing ')' brackets,
    * to return the index of that string which marks the point at which an EQUAL
    * number of open and closing brackets exist, before & after the index respectively.
    *
@@ -128,17 +156,38 @@ const k = {
    * @constructor
    */
   BracketsParser(
-    string,
-    isStr = typeof string === 'string',
-    hasLen = string.length
+    string, strLen, arr
   ) {
-    if (string && isStr && hasLen) {
-      const arr = [...string];
-      return arr.findIndex((c, i) => {
-          const lCount = arr.slice(0, i + 1).filter(c => c === "(").length;
-          const rCount = arr.slice(i + 1).filter(c => c === ")").length;
-          return lCount === rCount;
-        }) + 1;
+    if (
+      (strLen = safeStrArg(string))
+      && (
+        string.indexOf('(') > -1
+        || string.indexOf(')') > -1
+      ) && (arr = [...string])
+    ) {
+      if (strLen === 1) {
+        return 1;
+      }
+      let minIndex = 0;
+      let maxIndex = strLen - 1;
+      let currentIndex;
+      while (minIndex <= maxIndex) {
+        currentIndex = (minIndex + maxIndex) / 2 | 0;
+
+        const lCount = arr.slice(0, currentIndex + 1).filter(c => c === '(').length;
+        const rCount = arr.slice(currentIndex + 1).filter(c => c === ')').length;
+
+        if (lCount < rCount) {
+          minIndex = parseInt(currentIndex + ((currentIndex - currentIndex) / 2), 10) - 1;
+        }
+        else if (lCount > rCount) {
+          maxIndex = parseInt(currentIndex + (currentIndex / 2), 10) + 1;
+        }
+        else {
+          return currentIndex + 1;
+        }
+      }
+      return currentIndex + 1;
     }
     return -1;
 
@@ -201,29 +250,59 @@ const k = {
    */
   VerifyAllKatas() {
     return [
+      k.findElemWithOddOccurences(null),
+      -1,
+
       k.findElemWithOddOccurences([1, 1, 3, 3, 3, 3, 26, 10, 10]),
       26,
 
-      k.accum("abcd"),
-      "A-Bb-Ccc-Dddd",
+      k.accum(null),
+      -1,
+
+      k.accum(''),
+      -1,
+
+      k.accum('abcd'),
+      'A-Bb-Ccc-Dddd',
+
+      k.oddNums(null),
+      -1,
 
       k.oddNums([1, 2, 3, 4, 5]),
       [1, 3, 5],
 
+      k.findShort(''),
+      -1,
+
       k.findShort('one two three four'),
       3,
+
+      k.squareDigits(),
+      -1,
+
+      k.squareDigits(null),
+      -1,
 
       k.squareDigits(9119),
       811181,
 
+      k.tribonacci(null),
+      -1,
+
       k.tribonacci([1,1,1], 10),
       [1, 1, 1, 3, 5, 9, 17, 31, 57, 105],
+
+      k.BracketsParser(''),
+      -1,
 
       k.BracketsParser('(())'),
       2,
 
       k.BracketsParser('(())))('),
       4,
+
+      k.BracketsParser(`((${' '.repeat(100000)}))`),
+      50002,
 
       k.NegativeOfNegaBinary([1, 0, 0, 1, 1]),
       [1, 1, 0, 1],
@@ -237,8 +316,8 @@ const k = {
     ]
       .reduce(areEqual)
       .filter(pass => !pass).length < 1
-        && ("All katas completed.")
-        || ("Failure.");
+        && ('All katas completed.')
+        || ('Failure.');
   }
 
 };
