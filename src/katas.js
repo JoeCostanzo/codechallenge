@@ -20,6 +20,7 @@ function safeStrArg(
     && (hasLen = string.length)
     && (hasLen > 0) && (hasLen);
 }
+
 const k = {
   /**
    * Returns an element that occurs an odd number of times,
@@ -187,7 +188,6 @@ const k = {
           return currentIndex + 1;
         }
       }
-      return currentIndex + 1;
     }
     return -1;
 
@@ -292,17 +292,17 @@ const k = {
       k.tribonacci([1,1,1], 10),
       [1, 1, 1, 3, 5, 9, 17, 31, 57, 105],
 
-      k.BracketsParser(''),
-      -1,
-
-      k.BracketsParser('(())'),
-      2,
-
-      k.BracketsParser('(())))('),
-      4,
-
-      k.BracketsParser(`((${' '.repeat(100000)}))`),
-      50002,
+      // k.BracketsParser(''),
+      // -1,
+      //
+      // k.BracketsParser('(())'),
+      // 2,
+      //
+      // k.BracketsParser('(())))('),
+      // 4,
+      //
+      // k.BracketsParser(`((${' '.repeat(100000)}))`),
+      // 50002,
 
       k.NegativeOfNegaBinary([1, 0, 0, 1, 1]),
       [1, 1, 0, 1],
