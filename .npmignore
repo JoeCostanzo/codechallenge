@@ -1,0 +1,5 @@
+.gitignore
+.npmignore
+.editorconfig
+.idea
+node_modules/
