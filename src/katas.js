@@ -129,18 +129,21 @@ const k = {
    * instead of [1,1], shifting the common Fibo sequence by one place.
    *
    * @function tribonacci
-   * @param {Array} array - a 'signature' as an array that must contain 3 numbers
-   * @param {Number} number - The ultimate desired length of the output pattern, must be a non-negative number
+   * @param {Array} array - a 'signature' as an array; must contain at least 3 numbers
+   * @param {Number} number - The desired length of the output pattern, must be a non-negative number
    * @returns {Array|Number}
    */
-  tribonacci(array, number = 1) {
+  tribonacci(array, number) {
     if (
       Array.isArray(array)
+      && array.length > 2
       && typeof number === 'number'
+      && number > -1
     ) {
+      array = [...array];
       new Array(number).fill().map((_, i) => {
         let accum = [];
-        array.slice(i).map(_int => accum.push(_int));
+        array.slice(i).map(num => accum.push(parseInt(num, 10)));
         if (accum.length === 3) {
           array.push(accum.reduce((a, b) => a + b, 0));
           accum.shift();
@@ -162,42 +165,42 @@ const k = {
    * @returns {Number}
    * @constructor
    */
-  BracketsParser(
-    string, strLen, arr
-  ) {
-    if (
-      (strLen = safeStrArg(string))
-      && (
-        string.indexOf('(') > -1
-        || string.indexOf(')') > -1
-      ) && (arr = [...string])
-    ) {
-      if (strLen === 1) {
-        return 1;
-      }
-      let minIndex = 0;
-      let maxIndex = strLen - 1;
-      let currentIndex;
-      while (minIndex <= maxIndex) {
-        currentIndex = (minIndex + maxIndex) / 2 | 0;
-
-        const lCount = arr.slice(0, currentIndex + 1).filter(c => c === '(').length;
-        const rCount = arr.slice(currentIndex + 1).filter(c => c === ')').length;
-
-        if (lCount < rCount) {
-          minIndex = parseInt(currentIndex + ((currentIndex - currentIndex) / 2), 10) - 1;
-        }
-        else if (lCount > rCount) {
-          maxIndex = parseInt(currentIndex + (currentIndex / 2), 10) + 1;
-        }
-        else {
-          return currentIndex + 1;
-        }
-      }
-    }
-    return -1;
-
-  },
+  // BracketsParser(
+  //   string, strLen, arr
+  // ) {
+  //   if (
+  //     (strLen = safeStrArg(string))
+  //     && (
+  //       string.indexOf('(') > -1
+  //       || string.indexOf(')') > -1
+  //     ) && (arr = [...string])
+  //   ) {
+  //     if (strLen === 1) {
+  //       return 1;
+  //     }
+  //     let minIndex = 0;
+  //     let maxIndex = strLen - 1;
+  //     let currentIndex;
+  //     while (minIndex <= maxIndex) {
+  //       currentIndex = (minIndex + maxIndex) / 2 | 0;
+  //
+  //       const lCount = arr.slice(0, currentIndex + 1).filter(c => c === '(').length;
+  //       const rCount = arr.slice(currentIndex + 1).filter(c => c === ')').length;
+  //
+  //       if (lCount < rCount) {
+  //         minIndex = parseInt(currentIndex + ((currentIndex - currentIndex) / 2), 10) - 1;
+  //       }
+  //       else if (lCount > rCount) {
+  //         maxIndex = parseInt(currentIndex + (currentIndex / 2), 10) + 1;
+  //       }
+  //       else {
+  //         return currentIndex + 1;
+  //       }
+  //     }
+  //   }
+  //   return -1;
+  //
+  // },
 
 
   /**
@@ -249,7 +252,7 @@ const k = {
   /**
    * Calls each of the functions herein defined,
    * with their correct implementation,
-   * and verifies the output.
+   * and asserts against the output.
    *
    * @returns {String}
    * @constructor
@@ -301,7 +304,13 @@ const k = {
       k.tribonacci(null),
       -1,
 
-      k.tribonacci([1,1,1], 10),
+      k.tribonacci([1, 1], 5),
+      -1,
+
+      k.tribonacci([1, 1, 1], 10),
+      [1, 1, 1, 3, 5, 9, 17, 31, 57, 105],
+
+      k.tribonacci(['1', '1', '1'], 10),
       [1, 1, 1, 3, 5, 9, 17, 31, 57, 105],
 
       // k.BracketsParser(''),
