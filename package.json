@@ -12,10 +12,14 @@
     "browserify": "^14.1.0",
     "nodemon": "^1.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jsdoc": "^3.4.3"
+  },
   "scripts": {
     "test": "babel-node test/test.js",
-    "start": "nodemon test/test.js --exec babel-node --presets es2015,stage-0"
+    "start": "nodemon test/test.js --exec babel-node --presets es2015,stage-0",
+    "docs": "jsdoc src -r -d docs",
+    "buildast": "jsdoc -X ./src/ > ./src/jsast/jsdoc-ast.json"
   },
   "browserify": {
     "transform": [
