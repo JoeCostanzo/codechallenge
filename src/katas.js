@@ -23,11 +23,11 @@ function safeStrArg(
 
 const k = {
   /**
-   * Returns an element that occurs an odd number of times,
-   * out of an array containing a series of numbers that appear multiple times
+   * Finds & returns an element that occurs an odd number of times,
+   * from within an array containing a series of elements whom appear one or several times each
    *
    * @function findElemWithOddOccurences
-   * @param {Array} array
+   * @param {Array} array - the input array of elements to be searched
    * @returns {Number}
    */
   findElemWithOddOccurences: array =>
@@ -38,10 +38,11 @@ const k = {
 
 
   /**
-   * Converts a string to a version that 'accumulates' each character in a certain pattern.
+   * Converts a string of letters into longer string that 'accumulates' each character
+   * into a certain pattern with dashes and repeated chars. Returns that pattern as a string.
    *
    * @function accum
-   * @param {String} string
+   * @param {String} string - the input of letters to be converted
    * @returns {String|Number}
    */
   accum: string => {
@@ -53,7 +54,7 @@ const k = {
             i++;
             return `${m.toUpperCase() + m.toLowerCase().repeat(i)}-`;
           }
-          return 'Err: bad input.';
+          return `[Err, bad input: "${m}". Only use letters.]-`;
         }).slice(0, -1);
       };
       return string.traverse();
@@ -109,20 +110,20 @@ const k = {
 
 
   /**
-   * Square every digit of a number.
-   * For example, if receive 9119, return 811181.
+   * Returns a number whose digits are each the square of each digit of the number that was passed in.
+   * For example, if 9119 is passed in, returns 811181.
    *
    * @function squareDigits
-   * @param {Number} number
+   * @param {Number} number - the argument number, each digit of which to be squared
    * @returns {Number}
    */
   squareDigits: number => typeof number === 'number' && (parseInt(
-    number.toString().split('').map(digit => (parseInt(digit) * parseInt(digit)).toString()).join(''))
+    number.toString().split('').map(digit => (parseInt(digit, 10) * parseInt(digit, 10)).toString()).join(''), 10)
   ) || -1,
 
 
   /**
-   * A fibonacci-like fn that given a signature array/list, returns the first n elements - signature included of the so-seeded sequence:
+   * A fibonacci-like func. Given a signature array/list, returns the first n elements (signature included) of the so-seeded sequence:
    * Like a fibonacci, but sums the last 3 (instead of 2) numbers of the sequence to generate the next.
    * E.g. if start Tribonacci sequence with [1,1,1] as input (AKA signature), we have this sequence:
    * [1,1,1,3,5,9,17,31,...] But if start with [0,0,1] as a signature, the result starts with [0,1]
