@@ -1,8 +1,12 @@
 {
   "name": "codechallenge",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ES6 module containing code examples, solutions to puzzles, etc., reusable in projects as importable classes.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoeCostanzo/codechallenge.git"
+  },
   "dependencies": {
     "babel-cli": "^6.22.2",
     "babel-core": "^6.24.0",
