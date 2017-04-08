@@ -25,7 +25,9 @@ _This project is consumable via EITHER github.com or via NPM._
 - Install the module into your project via npm: `npm install codechallenge`
 - Import as a normal package and access it's exported members.
 ```js
-import * as challenge from 'codechallenge';
+import * as challenge from 'codechallenge'; // ES 'next' syntax
+
+var challenge = require('codechallenge'); // pre-ES6 syntax
 
 console.log(challenge.katas); // etc.
 ```
