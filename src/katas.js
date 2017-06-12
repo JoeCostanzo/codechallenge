@@ -68,7 +68,6 @@ const k = {
     };
     if (Array.isArray(ints)) {
       const opts = recursiveFn({ arr: [ ...ints ] });
-      console.log(opts.keptInds);
       return opts._ans === s && (1) || (0);
     }
   },
