@@ -22,6 +22,57 @@ function safeStrArg(
 }
 
 const k = {
+
+  sum_pairs: (ints, s, sPositive = s > 0) => {
+    // TODO: refactor to handle large data sets (needs to deal w/ ~10M length arrays)
+    // currently works for small arrays, but recursive method exceeds the stack on large data sets
+    const sComparison = sum =>
+      sPositive && (sum <= s) || (sum >= s);
+
+    const recursiveFn = ({
+      arr, _ans = false, ansIndicesValence = Number.POSITIVE_INFINITY, keptInds = [], adjustInds = 0
+    }) => {
+      if (arr.length) {
+        arr.reduce((n, val, ind) => {
+          if (
+            keptInds.length < 2
+            && (
+              !keptInds.length && sComparison(n + val)
+              || n + val === s
+            )
+          ) {
+            keptInds.push(ind + adjustInds);
+            n += val;
+          }
+          return n;
+        }, 0);
+        if (keptInds.length === 2) {
+          _ans = ints[keptInds[0]] + ints[keptInds[1]];
+          ansIndicesValence = keptInds[1];
+          if (ansIndicesValence > 1 && arr.length > 2) {
+            arr.shift();
+            adjustInds++;
+            const opts = recursiveFn({ arr, adjustInds });
+            if (opts._ans === s && opts.ansIndicesValence < ansIndicesValence) {
+              return opts;
+            }
+          }
+        }
+        if (keptInds.length === 1) {
+          arr.shift();
+          adjustInds++;
+          return recursiveFn({ arr, adjustInds });
+        }
+      }
+      return { arr, _ans, ansIndicesValence, keptInds, adjustInds };
+    };
+    if (Array.isArray(ints)) {
+      const opts = recursiveFn({ arr: [ ...ints ] });
+      console.log(opts.keptInds);
+      return opts._ans === s && (1) || (0);
+    }
+  },
+
   /**
    * Finds & returns an element that occurs an odd number of times,
    * from within an array containing a series of elements whom appear one or several times each
@@ -260,6 +311,27 @@ const k = {
    */
   VerifyAllKatas() {
     return [
+      k.sum_pairs([11, 3, 7, 5], 10),
+      1,
+
+      k.sum_pairs([4, 3, 2, 3, 4], 6),
+      1,
+
+      k.sum_pairs([0, 0, -2, 3], 2),
+      0,
+
+      k.sum_pairs([10, 5, 2, 3, 7, 5], 10),
+      1,
+
+      k.sum_pairs([1, 4, 8, 7, 3, 15], 8),
+      1,
+
+      k.sum_pairs([1, -2, 3, 0, -6, 1], -6),
+      1,
+
+      k.sum_pairs([1, 2, 3, 4, 1, 0], 2),
+      1,
+
       k.findElemWithOddOccurences(null),
       -1,
 
