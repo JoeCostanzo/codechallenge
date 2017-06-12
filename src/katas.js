@@ -7,7 +7,7 @@ function areEqual(a, b) {
     return a;
   }
   const elm = a.pop();
-  a.push(Array.isArray(b) ? elm.toString() === b.toString() : elm === b);
+  a.push(Array.isArray(b) && (elm.toString() === b.toString()) || (elm === b));
   return a;
 }
 
