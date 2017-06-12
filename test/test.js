@@ -6,15 +6,15 @@ var toExecute = function (pkg) {
   console.log(pkg.pi.VerifyPi());
 };
 
+var preES6 = function () {
+  "use strict";
+  var challengePreES6Import = require('../src/index');
+  toExecute(challengePreES6Import);
+};
+
 var esnext = function () {
   "use strict";
   toExecute(challengeESNextImport);
-};
-
-var preES6 = function () {
-  "use strict";
-  var challengePreES6Import = require('../dist/index');
-  toExecute(challengePreES6Import);
 };
 
 var parallel = function (fnList, done) {
